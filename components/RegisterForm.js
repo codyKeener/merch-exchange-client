@@ -6,9 +6,23 @@ import { registerUser } from '../utils/auth'; // Update with path to registerUse
 
 function RegisterForm({ user, updateUser }) {
   const [formData, setFormData] = useState({
+    username: '',
+    first_name: '',
+    last_name: '',
+    email: '',
     bio: '',
     uid: user.uid,
+    is_admin: false,
+    is_artist: false,
   });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,11 +30,57 @@ function RegisterForm({ user, updateUser }) {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} style={{ marginTop: '20px', fontSize: '22px' }}>
+
+      <h3>Create your profile to start buying and selling!</h3>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Gamer Bio</Form.Label>
-        <Form.Control as="textarea" name="bio" required placeholder="Enter your Bio" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
-        <Form.Text className="text-muted">Let other gamers know a little bit about you...</Form.Text>
+        <Form.Label>Username</Form.Label>
+        <Form.Control
+          name="username"
+          placeholder="Enter username"
+          required
+          onChange={handleChange}
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>First Name</Form.Label>
+        <Form.Control
+          name="first_name"
+          placeholder="Enter first name"
+          required
+          onChange={handleChange}
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Last Name</Form.Label>
+        <Form.Control
+          name="last_name"
+          placeholder="Enter last name"
+          required
+          onChange={handleChange}
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Email</Form.Label>
+        <Form.Control
+          name="email"
+          placeholder="Enter email"
+          type="email"
+          required
+          onChange={handleChange}
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Bio</Form.Label>
+        <Form.Control
+          as="textarea"
+          name="bio"
+          onChange={handleChange}
+        />
       </Form.Group>
       <Button variant="primary" type="submit">
         Submit
