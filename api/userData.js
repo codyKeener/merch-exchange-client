@@ -30,7 +30,7 @@ const getSingleUser = (id) => new Promise((resolve, reject) => {
 
 // GET USER BY UID
 const getUserByUid = (uid) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/users?uid=/${uid}`, {
+  fetch(`${endpoint}/users?uid=${uid}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
