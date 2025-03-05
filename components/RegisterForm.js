@@ -1,20 +1,53 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useRouter } from 'next/router';
 import { registerUser } from '../utils/auth'; // Update with path to registerUser
+import { updateUser } from '../api/userData';
 
-function RegisterForm({ user, updateUser }) {
+const initialState = {
+  id: '',
+  username: '',
+  first_name: '',
+  last_name: '',
+  email: '',
+  bio: '',
+  uid: '',
+  is_admin: false,
+  is_artist: false,
+};
+function RegisterForm({ obj, user, onUpdate }) {
   const [formData, setFormData] = useState({
+    id: '',
     username: '',
     first_name: '',
     last_name: '',
     email: '',
     bio: '',
-    uid: user.uid,
+    uid: user.uid || obj.uid || '',
     is_admin: false,
     is_artist: false,
   });
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!obj.id) {
+      setFormData({
+        username: '',
+        first_name: '',
+        last_name: '',
+        email: '',
+        bio: '',
+        uid: user.uid,
+        is_admin: false,
+        is_artist: false,
+      });
+    } else {
+      setFormData({ ...obj, id: obj.id, uid: obj.uid });
+    }
+  }, [obj, user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +59,11 @@ function RegisterForm({ user, updateUser }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    registerUser(formData).then(() => updateUser(user.uid));
+    if (!obj.id) {
+      registerUser(formData).then(() => onUpdate(user.uid));
+    } else {
+      updateUser(formData).then(() => router.push(`/profile/${obj.uid}`));
+    }
   };
 
   return (
@@ -40,6 +77,7 @@ function RegisterForm({ user, updateUser }) {
           placeholder="Enter username"
           required
           onChange={handleChange}
+          value={formData.username}
         />
       </Form.Group>
 
@@ -50,6 +88,7 @@ function RegisterForm({ user, updateUser }) {
           placeholder="Enter first name"
           required
           onChange={handleChange}
+          value={formData.first_name}
         />
       </Form.Group>
 
@@ -60,6 +99,7 @@ function RegisterForm({ user, updateUser }) {
           placeholder="Enter last name"
           required
           onChange={handleChange}
+          value={formData.last_name}
         />
       </Form.Group>
 
@@ -71,6 +111,7 @@ function RegisterForm({ user, updateUser }) {
           type="email"
           required
           onChange={handleChange}
+          value={formData.email}
         />
       </Form.Group>
 
@@ -80,6 +121,7 @@ function RegisterForm({ user, updateUser }) {
           as="textarea"
           name="bio"
           onChange={handleChange}
+          value={formData.bio}
         />
       </Form.Group>
       <Button variant="primary" type="submit">
@@ -90,10 +132,28 @@ function RegisterForm({ user, updateUser }) {
 }
 
 RegisterForm.propTypes = {
+  obj: PropTypes.shape({
+    id: PropTypes.number,
+    username: PropTypes.string,
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
+    email: PropTypes.string,
+    bio: PropTypes.string,
+    uid: PropTypes.string,
+    is_admin: PropTypes.bool,
+    is_artist: PropTypes.bool,
+  }),
   user: PropTypes.shape({
-    uid: PropTypes.string.isRequired,
-  }).isRequired,
-  updateUser: PropTypes.func.isRequired,
+    uid: PropTypes.string,
+  }),
+  onUpdate: PropTypes.func.isRequired,
+};
+
+RegisterForm.defaultProps = {
+  obj: initialState,
+  user: {
+    uid: '',
+  },
 };
 
 export default RegisterForm;

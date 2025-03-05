@@ -1,10 +1,10 @@
-import { Button } from 'react-bootstrap';
-import { signOut } from '../utils/auth';
-import { useAuth } from '../utils/context/authContext';
+// import { Button } from 'react-bootstrap';
+// import { signOut } from '../utils/auth';
+// import { useAuth } from '../utils/context/authContext';
 import ListingCarousel from '../components/ListingCarousel';
 
 function Home() {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   return (
     <>
       <div
@@ -17,12 +17,7 @@ function Home() {
         }}
       >
         <ListingCarousel />
-        <h1>Hello {user.fbUser.displayName}! </h1>
-        <p>Your Bio: {user.bio}</p>
-        <p>Click the button below to logout!</p>
-        <Button variant="danger" type="button" size="lg" className="copy-btn" onClick={signOut}>
-          Sign Out
-        </Button>
+        <h1>Welcome to Merch Exchange!</h1>
       </div>
     </>
   );
