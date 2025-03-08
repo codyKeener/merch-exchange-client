@@ -41,6 +41,7 @@ export default function Profile() {
     getTheUser();
   }, []);
 
+  // CHECK IF USER PROFILE HAS BEEN CREATED AND ROUTE BACK TO LOGIN PAGE IF NOT
   useEffect(() => {
     if (!user.username) {
       router.push('/profile/login');

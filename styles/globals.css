@@ -67,3 +67,7 @@ body {
 .blue-button {
   background-color: #136ebf;
 }
+
+.link:hover {
+  cursor: pointer;
+}

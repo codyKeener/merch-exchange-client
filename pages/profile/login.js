@@ -8,19 +8,21 @@ export default function LogIn() {
   const { user, updateUser } = useAuth();
   const router = useRouter();
 
+  // CHECK IF USER PROFILE HAS BEEN CREATED AND ROUTE TO USER'S PROFILE PAGE IF SO
   useEffect(() => {
     if (user.username) {
-      router.push(`/profile/${user.uid}`);
+      router.push('/profile/my-profile');
     }
   }, [user]);
 
   const goToUserProfile = () => {
     updateUser(user.uid);
-    router.push(`/profile/${user.uid}`);
+    router.push('/profile/my-profile');
   };
 
   return (
     <>
+      {/* IF THE USER EXISTS IN FIREBASE BUT THE PROFILE HAS NOT BEEN CREATED YET, RENDER THE REGISTER FORM. IF THERE IS NO USER FOUND, RENDER THE SIGN IN BUTTON */}
       {user && !user.username ? <RegisterForm user={user} onUpdate={goToUserProfile} /> : <Signin />}
     </>
   );

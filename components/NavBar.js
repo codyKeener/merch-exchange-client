@@ -59,7 +59,7 @@ export default function NavBar() {
               </Link>
             </Nav>
             <Nav className="justify-content-end flex-grow-1 pe-3">
-              <Link passHref href={user.uid ? `/profile/${user.uid}` : '/profile/login'}>
+              <Link passHref href={user.uid ? '/profile/my-profile' : '/profile/login'}>
                 <Nav.Link className="navbar navlink">Profile</Nav.Link>
               </Link>
             </Nav>
