@@ -80,7 +80,7 @@ const searchListings = (searchValue) => new Promise((resolve, reject) => {
 
 // FILTER LISTINGS BY CATEGORY
 const filterListingsByCategory = (category) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/listings?category="${category}"`, {
+  fetch(`${endpoint}/listings?category=${category}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ const filterListingsByCategory = (category) => new Promise((resolve, reject) => 
 
 // FILTER LISTINGS BY CREATED BY
 const filterListingsByCreatedBy = (uid) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/listings?created_by="${uid}"`, {
+  fetch(`${endpoint}/listings?created_by=${uid}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ const filterListingsByCreatedBy = (uid) => new Promise((resolve, reject) => {
 
 // FILTER LISTINGS BY ARTIST
 const filterListingsByArtist = (artist) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/listings?artist="${artist}"`, {
+  fetch(`${endpoint}/listings?artist=${artist}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

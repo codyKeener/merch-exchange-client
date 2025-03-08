@@ -13,22 +13,13 @@ const initialState = {
   last_name: '',
   email: '',
   bio: '',
+  profile_pic: '',
   uid: '',
   is_admin: false,
   is_artist: false,
 };
 function RegisterForm({ obj, user, onUpdate }) {
-  const [formData, setFormData] = useState({
-    id: '',
-    username: '',
-    first_name: '',
-    last_name: '',
-    email: '',
-    bio: '',
-    uid: user.uid || obj.uid || '',
-    is_admin: false,
-    is_artist: false,
-  });
+  const [formData, setFormData] = useState(initialState);
 
   const router = useRouter();
 
@@ -40,6 +31,7 @@ function RegisterForm({ obj, user, onUpdate }) {
         last_name: '',
         email: '',
         bio: '',
+        profile_pic: '',
         uid: user.uid,
         is_admin: false,
         is_artist: false,
@@ -70,7 +62,7 @@ function RegisterForm({ obj, user, onUpdate }) {
     <Form onSubmit={handleSubmit} style={{ marginTop: '20px', fontSize: '22px' }}>
 
       <h3>Create your profile to start buying and selling!</h3>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
+      <Form.Group className="mb-3" controlId="formBasicUsername">
         <Form.Label>Username</Form.Label>
         <Form.Control
           name="username"
@@ -81,7 +73,7 @@ function RegisterForm({ obj, user, onUpdate }) {
         />
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicEmail">
+      <Form.Group className="mb-3" controlId="formBasicFirstName">
         <Form.Label>First Name</Form.Label>
         <Form.Control
           name="first_name"
@@ -92,7 +84,7 @@ function RegisterForm({ obj, user, onUpdate }) {
         />
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicEmail">
+      <Form.Group className="mb-3" controlId="formBasicLastName">
         <Form.Label>Last Name</Form.Label>
         <Form.Control
           name="last_name"
@@ -115,13 +107,24 @@ function RegisterForm({ obj, user, onUpdate }) {
         />
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicEmail">
+      <Form.Group className="mb-3" controlId="formBasicBio">
         <Form.Label>Bio</Form.Label>
         <Form.Control
           as="textarea"
           name="bio"
           onChange={handleChange}
           value={formData.bio}
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicProfilePic">
+        <Form.Label>Profile Pic</Form.Label>
+        <Form.Control
+          name="profile_pic"
+          type="url"
+          placeholder="Enter URL for your Profile Pic"
+          onChange={handleChange}
+          value={formData.profile_pic}
         />
       </Form.Group>
       <Button variant="primary" type="submit">
@@ -134,12 +137,13 @@ function RegisterForm({ obj, user, onUpdate }) {
 RegisterForm.propTypes = {
   obj: PropTypes.shape({
     id: PropTypes.number,
-    username: PropTypes.string,
-    first_name: PropTypes.string,
-    last_name: PropTypes.string,
-    email: PropTypes.string,
+    username: PropTypes.string.isRequired,
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
     bio: PropTypes.string,
-    uid: PropTypes.string,
+    profile_pic: PropTypes.string,
+    uid: PropTypes.string.isRequired,
     is_admin: PropTypes.bool,
     is_artist: PropTypes.bool,
   }),
