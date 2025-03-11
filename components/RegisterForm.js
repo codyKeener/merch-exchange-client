@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import { registerUser } from '../utils/auth'; // Update with path to registerUser
 import { updateUser } from '../api/userData';
 
 const initialState = {
-  id: '',
+  id: 0,
   username: '',
   first_name: '',
   last_name: '',
@@ -21,7 +21,7 @@ const initialState = {
 function RegisterForm({ obj, user, onUpdate }) {
   const [formData, setFormData] = useState(initialState);
 
-  const router = useRouter();
+  // const router = useRouter();
 
   useEffect(() => {
     if (!obj.id) {
@@ -54,83 +54,97 @@ function RegisterForm({ obj, user, onUpdate }) {
     if (!obj.id) {
       registerUser(formData).then(() => onUpdate(user.uid));
     } else {
-      updateUser(formData).then(() => router.push(`/profile/${obj.uid}`));
+      updateUser(formData).then(() => onUpdate());
     }
   };
 
   return (
-    <Form onSubmit={handleSubmit} style={{ marginTop: '20px', fontSize: '22px' }}>
+    <>
+      <div style={{ display: 'flex', width: '100%', flex: '1 1 auto' }}>
+        <Form
+          onSubmit={handleSubmit}
+          style={{
+            fontSize: '22px', fontFamily: '"League Spartan", serif', display: 'flex', flexDirection: 'column', width: '100%', flex: '1 1 auto',
+          }}
+        >
 
-      <h3>Create your profile to start buying and selling!</h3>
-      <Form.Group className="mb-3" controlId="formBasicUsername">
-        <Form.Label>Username</Form.Label>
-        <Form.Control
-          name="username"
-          placeholder="Enter username"
-          required
-          onChange={handleChange}
-          value={formData.username}
-        />
-      </Form.Group>
+          <h3>Create your profile to start buying and selling!</h3>
+          {!obj.id ? (
+            <Form.Group className="mb-3" controlId="formBasicUsername">
+              <Form.Label style={{ marginBottom: '1px' }}>Username</Form.Label>
+              <Form.Control
+                name="username"
+                placeholder="Enter username"
+                required
+                onChange={handleChange}
+                value={formData.username}
+              />
+            </Form.Group>
+          )
+            : ''}
 
-      <Form.Group className="mb-3" controlId="formBasicFirstName">
-        <Form.Label>First Name</Form.Label>
-        <Form.Control
-          name="first_name"
-          placeholder="Enter first name"
-          required
-          onChange={handleChange}
-          value={formData.first_name}
-        />
-      </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicFirstName">
+            <Form.Label style={{ marginBottom: '1px' }}>First Name</Form.Label>
+            <Form.Control
+              name="first_name"
+              placeholder="Enter first name"
+              required
+              onChange={handleChange}
+              value={formData.first_name}
+            />
+          </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicLastName">
-        <Form.Label>Last Name</Form.Label>
-        <Form.Control
-          name="last_name"
-          placeholder="Enter last name"
-          required
-          onChange={handleChange}
-          value={formData.last_name}
-        />
-      </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicLastName">
+            <Form.Label style={{ marginBottom: '1px' }}>Last Name</Form.Label>
+            <Form.Control
+              name="last_name"
+              placeholder="Enter last name"
+              required
+              onChange={handleChange}
+              value={formData.last_name}
+            />
+          </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email</Form.Label>
-        <Form.Control
-          name="email"
-          placeholder="Enter email"
-          type="email"
-          required
-          onChange={handleChange}
-          value={formData.email}
-        />
-      </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label style={{ marginBottom: '1px' }}>Email</Form.Label>
+            <Form.Control
+              name="email"
+              placeholder="Enter email"
+              type="email"
+              required
+              onChange={handleChange}
+              value={formData.email}
+            />
+          </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicBio">
-        <Form.Label>Bio</Form.Label>
-        <Form.Control
-          as="textarea"
-          name="bio"
-          onChange={handleChange}
-          value={formData.bio}
-        />
-      </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicBio">
+            <Form.Label style={{ marginBottom: '1px' }}>Bio</Form.Label>
+            <Form.Control
+              as="textarea"
+              name="bio"
+              onChange={handleChange}
+              value={formData.bio}
+            />
+          </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicProfilePic">
-        <Form.Label>Profile Pic</Form.Label>
-        <Form.Control
-          name="profile_pic"
-          type="url"
-          placeholder="Enter URL for your Profile Pic"
-          onChange={handleChange}
-          value={formData.profile_pic}
-        />
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
-    </Form>
+          <Form.Group className="mb-3" controlId="formBasicProfilePic">
+            <Form.Label style={{ marginBottom: '1px' }}>Profile Pic</Form.Label>
+            <Form.Control
+              name="profile_pic"
+              type="url"
+              placeholder="Enter URL for your Profile Pic"
+              onChange={handleChange}
+              value={formData.profile_pic}
+            />
+          </Form.Group>
+          <div style={{ display: 'flex', justifyContent: 'right' }}>
+            <Button className="button-link" type="submit">
+              Submit
+            </Button>
+          </div>
+        </Form>
+      </div>
+    </>
   );
 }
 
