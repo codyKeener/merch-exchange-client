@@ -32,7 +32,7 @@ export default function NavBar() {
           <Offcanvas.Header
             closeButton
             style={{
-              // backgroundColor: '#777777',
+              // backgroundColor: '#000000',
               color: '#4495db',
               fontFamily: '"League Spartan", serif',
               fontSize: '24px',
@@ -43,7 +43,7 @@ export default function NavBar() {
           </Offcanvas.Header>
           <Offcanvas.Body
             style={{
-              backgroundColor: '#777777',
+              backgroundColor: '#000000',
               color: '#4495db',
               fontFamily: '"League Spartan", serif',
               fontSize: '24px',

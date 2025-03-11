@@ -131,7 +131,7 @@ export default function Profile() {
         <div
           id="profile-nav"
           style={{
-            minWidth: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'start', backgroundColor: '#777777', borderRadius: '15px', padding: '15px',
+            minWidth: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'start', backgroundColor: '#000000', borderRadius: '15px', padding: '15px',
           }}
         >
           <div
@@ -150,7 +150,7 @@ export default function Profile() {
         <div
           id="profile-window"
           style={{
-            width: '100%', minHeight: '600px', display: 'flex', alignItems: 'space-between', backgroundColor: '#777777', borderRadius: '15px', padding: '15px', flexWrap: 'wrap',
+            width: '100%', minHeight: '600px', display: 'flex', alignItems: 'space-between', backgroundColor: '#000000', borderRadius: '15px', padding: '15px', flexWrap: 'wrap',
           }}
         >
           {profileWindow}
