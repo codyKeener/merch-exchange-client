@@ -22,8 +22,10 @@ export default function LogIn() {
 
   return (
     <>
-      {/* IF THE USER EXISTS IN FIREBASE BUT THE PROFILE HAS NOT BEEN CREATED YET, RENDER THE REGISTER FORM. IF THERE IS NO USER FOUND, RENDER THE SIGN IN BUTTON */}
-      {user && !user.username ? <RegisterForm user={user} onUpdate={goToUserProfile} /> : <Signin />}
+      <div style={{ marginTop: '20px' }}>
+        {/* IF THE USER EXISTS IN FIREBASE BUT THE PROFILE HAS NOT BEEN CREATED YET, RENDER THE REGISTER FORM. IF THERE IS NO USER FOUND, RENDER THE SIGN IN BUTTON */}
+        {user && !user.username ? <RegisterForm user={user} onUpdate={goToUserProfile} /> : <Signin />}
+      </div>
     </>
   );
 }

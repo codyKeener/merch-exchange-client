@@ -60,6 +60,26 @@ body {
   font-weight: 600;
 }
 
+.active-button-link {
+  border: none;
+  padding: none;
+  background-color: rgb(255, 255, 255, 0);
+  color: #ffffff;
+  font-family: "League Spartan", serif;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.active-button-link:hover {
+  border: none;
+  padding: none;
+  background-color: rgb(255, 255, 255, 0);
+  color: #136ebf;
+  font-family: "League Spartan", serif;
+  font-size: 24px;
+  font-weight: 600;
+}
+
 .navlink {
   padding-top: 10px;
 }
@@ -70,4 +90,8 @@ body {
 
 .link:hover {
   cursor: pointer;
+}
+
+.strong {
+  font-weight: 600;
 }
