@@ -20,12 +20,13 @@ a {
 }
 
 body {
-  background-color: #a9a9a9;
+  background-color: #2e2e2e;
   font-family: "League Spartan", serif;
+  color: #abc4c8;
 }
 
 .navbar {
-  background-color: #777777;
+  background-color: #000000;
   color: #abc4c8;
   font-family: "League Spartan", serif;
   font-size: 24px;
@@ -33,18 +34,29 @@ body {
 }
 
 .navbar:hover {
-  background-color: #777777;
-  color: #4495db;
+  background-color: #000000;
+  color: #136ebf;
   font-family: "League Spartan", serif;
   font-size: 24px;
   font-weight: 600;
+}
+
+.add-to-cart-button {
+  background-color: #136ebf;
+  border: none;
+  font-size: 24px;
+}
+
+.add-to-cart-button:hover {
+  background-color: #268de7;
+  border: none;
 }
 
 .button-link {
   border: none;
   padding: none;
   background-color: rgb(255, 255, 255, 0);
-  color: #000000;
+  color: #abc4c8;
   font-family: "League Spartan", serif;
   font-size: 24px;
   font-weight: 600;
@@ -64,7 +76,7 @@ body {
   border: none;
   padding: none;
   background-color: rgb(255, 255, 255, 0);
-  color: #ffffff;
+  color: #136ebf;
   font-family: "League Spartan", serif;
   font-size: 24px;
   font-weight: 600;
@@ -94,4 +106,16 @@ body {
 
 .strong {
   font-weight: 600;
+}
+
+.flexdiv {
+  display: flex;
+  flex: 1 1 0;
+
+}
+
+.flexdiv-column {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
 }

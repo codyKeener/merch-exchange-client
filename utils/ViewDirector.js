@@ -23,7 +23,7 @@ const ViewDirectorBasedOnUserAuthStatus = ({ component: Component, pageProps }) 
   return (
     <>
       <NavBar />
-      <div className="container"><Component {...pageProps} /></div>;
+      <div className="container"><Component {...pageProps} /></div>
     </>
   );
 
