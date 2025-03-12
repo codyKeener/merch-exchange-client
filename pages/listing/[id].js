@@ -28,7 +28,7 @@ export default function ListingDetailsPage() {
           <Button className="add-to-cart-button">Add to Cart</Button>
           <p style={{ marginTop: '30px' }}>{listingData.description}</p>
           <div>
-            <p>Sold by: <Link passHref href={`/profile/${listingData.created_by?.uid}`}><span>{listingData.created_by?.username}</span></Link></p>
+            <p>Sold by: <Link passHref href={`/profile/${listingData.created_by?.uid}`}><span className="link">{listingData.created_by?.username}</span></Link></p>
           </div>
         </div>
       </div>

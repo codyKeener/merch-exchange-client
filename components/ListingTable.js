@@ -6,7 +6,7 @@ export default function ListingTable({ listing }) {
   return (
     <>
       <Link passHref href={`/listing/${listing.id}`}>
-        <div style={{ display: 'flex', border: '1px solid #ffffff', backgroundColor: '#000000' }}>
+        <div className="link" style={{ display: 'flex', border: '1px solid #ffffff', backgroundColor: '#000000' }}>
           <Image style={{ width: '150px', height: '150px' }} src={listing.image} />
           <div style={{ margin: '0 15px 0 15px', paddingTop: '10px' }}>
             <h3>{listing.artist.name}</h3>

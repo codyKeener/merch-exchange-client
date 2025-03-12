@@ -3,7 +3,7 @@ import { clientCredentials } from '../utils/client';
 const endpoint = clientCredentials.databaseURL;
 
 // GET ALL USERS
-const getCategories = () => new Promise((resolve, reject) => {
+const getUsers = () => new Promise((resolve, reject) => {
   fetch(`${endpoint}/users`, {
     method: 'GET',
     headers: {
@@ -83,5 +83,5 @@ const deleteUser = (id) => new Promise((resolve, reject) => {
 });
 
 export {
-  getCategories, getSingleUser, getUserByUid, createUser, updateUser, deleteUser,
+  getUsers, getSingleUser, getUserByUid, createUser, updateUser, deleteUser,
 };
