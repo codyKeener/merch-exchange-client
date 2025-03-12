@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 import { getSingleListing } from '../api/listingData';
 
-export default function ListingCard({ listingObj }) {
+export default function ListingCard({ listingObj, cardSize }) {
   const [listingData, setListingData] = useState({});
 
   useEffect(() => {
@@ -13,10 +14,14 @@ export default function ListingCard({ listingObj }) {
   }, [listingObj]);
 
   return (
-    <Card style={{ width: '350px', backgroundColor: '#000000', color: '#ffffff' }}>
-      <Card.Img variant="top" src={listingData.image} style={{ width: '350px', height: '350px' }} />
+    <Card style={{ width: cardSize, backgroundColor: '#000000', color: '#ffffff' }}>
+      <Card.Img variant="top" src={listingData.image} style={{ width: cardSize, height: cardSize }} />
       <Card.Body>
-        <Card.Title>{listingData.artist?.name} - {listingData.title}</Card.Title>
+        <Link passHref href={`listing/${listingData.id}`}>
+          <div className="link">
+            <Card.Title>{listingData.artist?.name} - {listingData.title}</Card.Title>
+          </div>
+        </Link>
         <Card.Text>${listingData.price}</Card.Text>
       </Card.Body>
     </Card>
@@ -37,7 +42,7 @@ ListingCard.propTypes = {
       label: PropTypes.string,
     }),
     description: PropTypes.string,
-    price: PropTypes.number,
+    price: PropTypes.string,
     size: PropTypes.string,
     condition: PropTypes.string,
     image: PropTypes.string,
@@ -57,4 +62,5 @@ ListingCard.propTypes = {
     published: PropTypes.bool,
     sold: PropTypes.bool,
   }).isRequired,
+  cardSize: PropTypes.string.isRequired,
 };

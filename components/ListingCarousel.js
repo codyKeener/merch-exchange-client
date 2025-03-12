@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-// import { Image } from 'react-bootstrap';
 import { getListings } from '../api/listingData';
 import ListingCard from './ListingCard';
 
@@ -19,14 +18,10 @@ function ListingCarousel() {
   }, []);
 
   return (
-    <Carousel style={{ width: '350px', paddingBottom: '45px' }}>
+    <Carousel data-bs-theme="dark" style={{ width: '500px', paddingBottom: '45px' }}>
       {listings.map((listing) => (
         <Carousel.Item key={listing.id}>
-          {/* <Image src={listing.image} />
-          <Carousel.Caption>
-            <h2>{listing.title}</h2>
-          </Carousel.Caption> */}
-          <ListingCard listingObj={listing} />
+          <ListingCard listingObj={listing} cardSize="500px" />
         </Carousel.Item>
       ))}
     </Carousel>
