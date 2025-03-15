@@ -17,7 +17,7 @@ export default function ListingCard({ listingObj, cardSize }) {
     <Card style={{ width: cardSize, backgroundColor: '#000000', color: '#ffffff' }}>
       <Card.Img variant="top" src={listingData.image} style={{ width: cardSize, height: cardSize }} />
       <Card.Body>
-        <Link passHref href={`listing/${listingData.id}`}>
+        <Link passHref href={`listings/${listingData.id}`}>
           <div className="link">
             <Card.Title>{listingData.artist?.name} - {listingData.title}</Card.Title>
           </div>
