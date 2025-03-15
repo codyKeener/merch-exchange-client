@@ -7,6 +7,8 @@ import { signOut } from '../../utils/auth';
 import { filterListingsByCreatedBy } from '../../api/listingData';
 import ProfileCard from '../../components/ProfileCard';
 import RegisterForm from '../../components/RegisterForm';
+import ListingTable from '../../components/ListingTable';
+import ListingForm from '../../components/Forms/ListingForm';
 
 const initialState = {
   username: '',
@@ -26,6 +28,7 @@ export default function Profile() {
   const [userDetails, setUserDetails] = useState(initialState);
   const [profileWindow, setProfileWindow] = useState('');
   const [userListings, setUserListings] = useState([]);
+  const [isListingRefresh, setIsListingRefresh] = useState(false);
 
   const getTheUser = () => {
     getUserByUid(user.uid).then((theUser) => {
@@ -77,9 +80,14 @@ export default function Profile() {
     </div>
   );
 
+  const refreshAfterListing = () => {
+    setIsListingRefresh(true);
+    filterListingsByCreatedBy(user.uid).then(setUserListings);
+  };
+
   const mylistings = (
     <div id="profile-window-my-listings">
-      {userListings.length > 0 ? userListings.map((listing) => (<h4>{listing.title}</h4>)) : <h4>You haven&apos;t listed any items for sale yet!</h4>}
+      {userListings.length > 0 ? userListings.map((listing) => (<ListingTable listing={listing} onUpdate={refreshAfterListing} />)) : <h4>You haven&apos;t listed any items for sale yet!</h4>}
     </div>
   );
 
@@ -87,13 +95,21 @@ export default function Profile() {
     const myprofileBtn = document.getElementById('myprofile-btn');
     const orderhistoryBtn = document.getElementById('orderhistory-btn');
     const mylistingsBtn = document.getElementById('mylistings-btn');
+    const listanitemBtn = document.getElementById('listanitem-btn');
     myprofileBtn.className = 'button-link';
     orderhistoryBtn.className = 'button-link';
     mylistingsBtn.className = 'button-link';
+    listanitemBtn.className = 'button-link';
     const activeElementId = `${buttonId}-btn`;
     const activeElement = document.getElementById(activeElementId);
     activeElement.className = 'active-button-link';
   };
+
+  const listAnItem = (
+    <div id="profile-window-list-an-item">
+      <ListingForm onUpdate={refreshAfterListing} />
+    </div>
+  );
 
   const resetProfile = () => {
     if (user.username) {
@@ -107,6 +123,15 @@ export default function Profile() {
     resetProfile();
   }, [userDetails]);
 
+  // SET THE WINDOW TO THE LISTING WINDOW AFTER THE LISTINGS HAVE REFRESHED AFTER CREATING A NEW LISTING
+  useEffect(() => {
+    if (isListingRefresh) {
+      setProfileWindow(mylistings);
+      setActive('mylistings');
+      setIsListingRefresh(false); // Reset the flag
+    }
+  }, [userListings]);
+
   const updateProfileWindow = (window) => {
     if (window === 'myprofile') {
       setProfileWindow(myprofile);
@@ -116,6 +141,8 @@ export default function Profile() {
       setProfileWindow(mylistings);
     } else if (window === 'editprofile') {
       setProfileWindow(registerform);
+    } else if (window === 'listanitem') {
+      setProfileWindow(listAnItem);
     }
     setActive(window);
   };
@@ -142,6 +169,7 @@ export default function Profile() {
             <Button variant="none" id="myprofile-btn" className="button-link" onClick={() => updateProfileWindow('myprofile')}>My Profile</Button>
             <Button variant="none" id="orderhistory-btn" className="button-link" onClick={() => updateProfileWindow('orderhistory')}>Order History</Button>
             <Button variant="none" id="mylistings-btn" className="button-link" onClick={() => updateProfileWindow('mylistings')}>My Listings</Button>
+            <Button variant="none" id="listanitem-btn" className="button-link" onClick={() => updateProfileWindow('listanitem')}>List an Item</Button>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start' }}>
             <Button variant="none" className="button-link" onClick={signOutUser}>Sign Out</Button>

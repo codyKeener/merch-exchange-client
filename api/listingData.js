@@ -31,7 +31,7 @@ const getSingleListing = (id) => new Promise((resolve, reject) => {
 // CREATE LISTING
 const createListing = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/listings`, {
-    method: 'LISTING',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },

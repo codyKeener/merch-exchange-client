@@ -16,7 +16,7 @@ export default function NavBar() {
   const { user } = useAuth();
 
   return (
-    <Navbar expand="md" className="mb-3 navbar">
+    <Navbar expand="md" className="mb-3 navbar" data-bs-theme="dark">
       <Container>
         <Link passHref href="/">
           <Navbar.Brand>
@@ -51,8 +51,8 @@ export default function NavBar() {
             }}
           >
             <Nav className="justify-content-left flex-grow-1 pe-3">
-              <Link passHref href="/bands">
-                <Nav.Link className="navbar navlink">Bands</Nav.Link>
+              <Link passHref href="/artists">
+                <Nav.Link className="navbar navlink">Artists</Nav.Link>
               </Link>
               <Link passHref href="/products">
                 <Nav.Link className="navbar navlink">Products</Nav.Link>

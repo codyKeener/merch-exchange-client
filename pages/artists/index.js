@@ -1,39 +1,37 @@
 import { useEffect, useState } from 'react';
-import { Image } from 'react-bootstrap';
 import Link from 'next/link';
-import { getCategories } from '../../api/categoryData';
+import { getArtists } from '../../api/artistData';
 
 export default function ProductsPage() {
-  const [categories, setCategories] = useState([]);
+  const [artists, setArtists] = useState([]);
 
-  const getTheCategories = () => {
-    getCategories().then(setCategories);
+  const getTheArtists = () => {
+    getArtists().then(setArtists);
   };
 
   useEffect(() => {
-    getTheCategories();
+    getTheArtists();
   }, []);
 
   return (
     <>
       <div
         style={{
-          width: '100%', display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center',
+          width: '100%', display: 'flex', gap: '20px', flexWrap: 'wrap',
         }}
       >
-        {categories.map((category) => (
-          <Link passHref href={`/listings?category=${category.id}`}>
+        {artists.map((artist) => (
+          <Link passHref href={`/listings?artist=${artist.id}`}>
             <div
               style={{ display: 'flex', flexDirection: 'column', width: '300px' }}
-              key={category.id}
+              key={artist.id}
               className="link"
             >
-              <Image style={{ width: '300px', height: '300px' }} src={category.image} />
               <span
                 style={{
                   width: '300px', fontSize: '22px', display: 'flex', justifyContent: 'center',
                 }}
-              >{category.label}
+              >{artist.name}
               </span>
             </div>
           </Link>
