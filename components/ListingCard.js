@@ -15,7 +15,7 @@ export default function ListingCard({ listingObj, cardSize }) {
 
   return (
     <Card style={{ width: cardSize, backgroundColor: '#000000', color: '#ffffff' }}>
-      <Card.Img variant="top" src={listingData.image} style={{ width: cardSize, height: cardSize }} />
+      <Card.Img layout="responsive" src={listingData.image} style={{ width: cardSize, height: cardSize, objectFit: 'cover' }} />
       <Card.Body>
         <Link passHref href={`listings/${listingData.id}`}>
           <div className="link">

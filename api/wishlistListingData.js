@@ -3,7 +3,7 @@ import { clientCredentials } from '../utils/client';
 const endpoint = clientCredentials.databaseURL;
 
 // GET ALL WISHLIST LISTINGS
-const getCategories = () => new Promise((resolve, reject) => {
+const getWishlistListings = () => new Promise((resolve, reject) => {
   fetch(`${endpoint}/wishlistlistings`, {
     method: 'GET',
     headers: {
@@ -28,10 +28,23 @@ const getSingleWishlistListing = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+// GET A WISHLIST LISTING BY USER AND LISTING
+const getWishListListingByUserAndListing = (user, listing) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/wishlistlistings?user=${user}&listing=${listing}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve((data)))
+    .catch(reject);
+});
+
 // CREATE WISHLIST LISTING
 const createWishlistListing = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/wishlistlistings`, {
-    method: 'WISHLIST LISTING',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -70,5 +83,5 @@ const deleteWishlistListing = (id) => new Promise((resolve, reject) => {
 });
 
 export {
-  getCategories, getSingleWishlistListing, createWishlistListing, updateWishlistListing, deleteWishlistListing,
+  getWishlistListings, getSingleWishlistListing, createWishlistListing, updateWishlistListing, deleteWishlistListing, getWishListListingByUserAndListing,
 };

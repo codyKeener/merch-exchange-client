@@ -20,6 +20,7 @@ const initialState = {
   uid: '',
   is_admin: false,
   is_artist: false,
+  wishlist_listings: [],
 };
 
 export default function Profile() {
@@ -29,6 +30,7 @@ export default function Profile() {
   const [profileWindow, setProfileWindow] = useState('');
   const [userListings, setUserListings] = useState([]);
   const [isListingRefresh, setIsListingRefresh] = useState(false);
+  const [isWishlistRefresh, setIsWishlistRefresh] = useState(false);
 
   const getTheUser = () => {
     getUserByUid(user.uid).then((theUser) => {
@@ -85,9 +87,22 @@ export default function Profile() {
     filterListingsByCreatedBy(user.uid).then(setUserListings);
   };
 
+  const refreshAfterWishlist = () => {
+    setIsWishlistRefresh(true);
+    getTheUser();
+  };
+
   const mylistings = (
     <div id="profile-window-my-listings">
-      {userListings.length > 0 ? userListings.map((listing) => (<ListingTable listing={listing} onUpdate={refreshAfterListing} />)) : <h4>You haven&apos;t listed any items for sale yet!</h4>}
+      {userListings.length > 0 ? userListings.map((listing) => (<ListingTable key={listing.id} listing={listing} onUpdate={refreshAfterListing} canEdit={1} />)) : <h4>You haven&apos;t listed any items for sale yet!</h4>}
+    </div>
+  );
+
+  const wishlist = (
+    <div id="profile-window-wishlist">
+      {userDetails.wishlist_listings?.length > 0 ? userDetails.wishlist_listings.map((listing) => (
+        <ListingTable key={listing.id} listing={listing} onUpdate={refreshAfterWishlist} canEdit={0} />
+      )) : <h4>You haven&apos;t added any items to your Wishlist yet!</h4>}
     </div>
   );
 
@@ -96,29 +111,35 @@ export default function Profile() {
     const orderhistoryBtn = document.getElementById('orderhistory-btn');
     const mylistingsBtn = document.getElementById('mylistings-btn');
     const listanitemBtn = document.getElementById('listanitem-btn');
+    const wishlistBtn = document.getElementById('wishlist-btn');
     myprofileBtn.className = 'button-link';
     orderhistoryBtn.className = 'button-link';
     mylistingsBtn.className = 'button-link';
     listanitemBtn.className = 'button-link';
+    wishlistBtn.className = 'button-link';
     const activeElementId = `${buttonId}-btn`;
     const activeElement = document.getElementById(activeElementId);
     activeElement.className = 'active-button-link';
   };
 
   const listAnItem = (
-    <div id="profile-window-list-an-item">
+    <div id="profile-window-list-an-item" style={{ width: '100%' }}>
       <ListingForm onUpdate={refreshAfterListing} />
     </div>
   );
 
   const resetProfile = () => {
-    if (user.username) {
+    if (user.username && isWishlistRefresh === false) {
       setProfileWindow(myprofile);
       setActive('myprofile');
+    } else if (isWishlistRefresh) {
+      setProfileWindow(wishlist);
+      setActive('wishlist');
+      setIsWishlistRefresh(false);
     }
   };
 
-  // SET THE PROFILE WINDOW TO BE MY PROFILE BY DEFAULT
+  // RESET THE PROFILE WHEN USER DETAILS CHANGE
   useEffect(() => {
     resetProfile();
   }, [userDetails]);
@@ -128,7 +149,7 @@ export default function Profile() {
     if (isListingRefresh) {
       setProfileWindow(mylistings);
       setActive('mylistings');
-      setIsListingRefresh(false); // Reset the flag
+      setIsListingRefresh(false);
     }
   }, [userListings]);
 
@@ -143,6 +164,8 @@ export default function Profile() {
       setProfileWindow(registerform);
     } else if (window === 'listanitem') {
       setProfileWindow(listAnItem);
+    } else if (window === 'wishlist') {
+      setProfileWindow(wishlist);
     }
     setActive(window);
   };
@@ -170,6 +193,7 @@ export default function Profile() {
             <Button variant="none" id="orderhistory-btn" className="button-link" onClick={() => updateProfileWindow('orderhistory')}>Order History</Button>
             <Button variant="none" id="mylistings-btn" className="button-link" onClick={() => updateProfileWindow('mylistings')}>My Listings</Button>
             <Button variant="none" id="listanitem-btn" className="button-link" onClick={() => updateProfileWindow('listanitem')}>List an Item</Button>
+            <Button variant="none" id="wishlist-btn" className="button-link" onClick={() => updateProfileWindow('wishlist')}>Wishlist</Button>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start' }}>
             <Button variant="none" className="button-link" onClick={signOutUser}>Sign Out</Button>

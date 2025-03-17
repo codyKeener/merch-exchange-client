@@ -5,17 +5,36 @@ import { useAuth } from '../../utils/context/authContext';
 import { getArtists } from '../../api/artistData';
 import { getCategories } from '../../api/categoryData';
 import { createListing, updateListing } from '../../api/listingData';
+import ArtistForm from './ArtistForm';
 
 const initialState = {
   title: '',
-  artist: 0,
-  category: 0,
+  artist: {
+    id: 0,
+    name: '',
+    genre: '',
+  },
+  category: {
+    id: 0,
+    label: '',
+  },
   description: '',
   price: '',
   size: '',
   condition: '',
   image: '',
-  created_by: 0,
+  created_by: {
+    id: 0,
+    username: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    bio: '',
+    profile_pic: '',
+    uid: '',
+    is_admin: false,
+    is_artist: false,
+  },
   created_at: '',
   published: false,
   sold: false,
@@ -25,6 +44,7 @@ export default function ListingForm({ obj, onUpdate }) {
   const [formInput, setFormInput] = useState(initialState);
   const [artists, setArtists] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [sideBar, setSideBar] = useState(null);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -76,36 +96,39 @@ export default function ListingForm({ obj, onUpdate }) {
     }
   };
 
-  // const beanFormSubmit = () => {
-  //   getArtists().then(setArtists);
-  //   setSideBar(null);
-  // };
+  const artistFormSubmit = () => {
+    getArtists().then(setArtists);
+    setSideBar(null);
+  };
 
-  // const sideBarToggle = () => {
-  //   if (sideBar === null) {
-  //     setSideBar(
-  //       <>
-  //         <div style={{
-  //           minWidth: '350px', marginTop: '64px', border: '2px solid white', borderRadius: '5px',
-  //         }}
-  //         >
-  //           <BeanForm onUpdate={beanFormSubmit} />
-  //         </div>
-  //       </>,
-  //     );
-  //   } else {
-  //     setSideBar(null);
-  //   }
-  // };
+  const sideBarToggle = () => {
+    if (sideBar === null) {
+      setSideBar(
+        <>
+          <div style={{
+            display: 'flex', minWidth: '350px', border: '2px solid #abc4c8', borderRadius: '15px',
+          }}
+          >
+            <div style={{ width: '100%', padding: '10px' }}>
+              <h3>Add a new artist</h3>
+              <ArtistForm onUpdate={artistFormSubmit} />
+            </div>
+          </div>
+        </>,
+      );
+    } else {
+      setSideBar(null);
+    }
+  };
 
   return (
     <>
-      <div style={{ display: 'flex', width: '90%' }}>
+      <div id="listing-form-div" style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
         <div style={{
-          display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '20px', width: '100%',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '20px',
         }}
         >
-          <Form onSubmit={handleSubmit}>
+          <Form style={{ display: 'flex', flexDirection: 'column', minWidth: '600px' }} onSubmit={handleSubmit}>
             <FloatingLabel controlId="floatingInput1" label="Title" style={{ marginBottom: '5px' }}>
               <Form.Control
                 type="text"
@@ -119,7 +142,6 @@ export default function ListingForm({ obj, onUpdate }) {
             <FloatingLabel controlId="floatingSelect1" label="Artist" style={{ marginBottom: '5px' }}>
               <Form.Select
                 type="text"
-                // placeholder="Select an Artist"
                 name="artist"
                 value={formInput.artist}
                 onChange={handleChange}
@@ -130,6 +152,7 @@ export default function ListingForm({ obj, onUpdate }) {
                   <option key={artist.id} value={artist.id}>{artist.name}</option>
                 ))}
               </Form.Select>
+              <span style={{ fontSize: '16px', marginBottom: '0px', padding: '5px 0 0 0' }}>Artist not in the list? <Button style={{ fontSize: '16px', marginBottom: '0px', padding: '0 0 0 0' }} className="button-link" onClick={sideBarToggle}>Add a new artist</Button></span>
             </FloatingLabel>
             <FloatingLabel controlId="floatingSelect2" label="Category" style={{ marginBottom: '5px' }}>
               <Form.Select
@@ -209,6 +232,7 @@ export default function ListingForm({ obj, onUpdate }) {
             </div>
           </Form>
         </div>
+        <div id="artist-div" style={{ maxWidth: '350px' }}>{sideBar}</div>
       </div>
     </>
   );

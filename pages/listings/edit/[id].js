@@ -20,5 +20,16 @@ export default function EditListing() {
     router.push('/profile/my-profile');
   };
 
-  return <ListingForm obj={listingData} onUpdate={afterUpdate} />;
+  return (
+    <>
+      <div
+        style={{
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        }}
+      >
+        <h2 style={{ margin: '15px 0 15px' }}>Update Your Listing</h2>
+        <ListingForm obj={listingData} onUpdate={afterUpdate} />
+      </div>
+    </>
+  );
 }

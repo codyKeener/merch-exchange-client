@@ -21,12 +21,12 @@ export default function ProfileCard({ profileObj, onEdit }) {
     <>
       <div
         style={{
-          flex: '1 1 auto', display: 'flex', flexDirection: 'column', flexWrap: 'wrap', margin: '5px 0px 0px 10px',
+          flex: '0 1 auto', display: 'flex', flexWrap: 'wrap', margin: '5px 0px 0px 10px',
         }}
       >
         <div
           style={{
-            width: '100%', display: 'flex', flexWrap: 'wrap', gap: '10px',
+            display: 'flex', flexWrap: 'wrap', gap: '10px',
           }}
         >
           <div style={{ marginRight: '10px', width: '350px' }}>
@@ -34,23 +34,32 @@ export default function ProfileCard({ profileObj, onEdit }) {
             <h1 style={{ marginTop: '10px' }}>{profileObj.username}</h1>
             {onEdit === initialState ? <><p style={{ fontSize: '24px' }}><strong>Bio:</strong> {profileObj.bio}</p></> : ''}
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', fontSize: '24px' }}>
+          <div style={{
+            width: '52%', display: 'flex', flexDirection: 'column', fontSize: '24px',
+          }}
+          >
             <p>{onEdit !== initialState ? <><strong>Bio:</strong> {profileObj.bio}</> : '' }</p>
             {userListings?.length > 0 ? (
               <>
                 <div className="flexdiv-column" style={{ margin: '-15px 0 0 20px', gap: '15px' }}>
                   <h4>{profileObj.username}&apos;s Items for Sale:</h4>
                   {userListings.map((listing) => (
-                    <ListingTable listing={listing} />
+                    <ListingTable key={listing.id} listing={listing} canEdit={0} />
                   ))}
                 </div>
               </>
             ) : ''}
-            <p>{onEdit !== initialState ? <><strong>First Name:</strong> {profileObj.first_name}</> : ''}</p>
-            <p>{onEdit !== initialState ? <><strong>Last Name:</strong> {profileObj.last_name}</> : ''}</p>
-            <p>{onEdit !== initialState ? <><strong>Email:</strong> {profileObj.email}</> : ''}</p>
-            <p>{onEdit !== initialState ? <><strong>Primary shipping address:</strong> none added!</> : ''}</p>
-            <p>{onEdit !== initialState ? <><strong>Primary billing address:</strong> none added!</> : ''}</p>
+            {onEdit !== initialState ? (
+              <>
+                <div>
+                  <p><strong>First Name:</strong> {profileObj.first_name}</p>
+                  <p><strong>Last Name:</strong> {profileObj.last_name}</p>
+                  <p><strong>Email:</strong> {profileObj.email}</p>
+                  <p><strong>Primary shipping address:</strong> none added!</p>
+                  <p><strong>Primary billing address:</strong> none added!</p>
+                </div>
+              </>
+            ) : ''}
           </div>
         </div>
         <div
