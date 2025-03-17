@@ -50,53 +50,20 @@ export default function NavBar() {
               fontWeight: '600',
             }}
           >
-            <Nav className="justify-content-left flex-grow-1 pe-3">
+            <Container className="justify-content-left flex-grow-1 pe-3" style={{ display: 'flex', gap: '30px' }}>
               <Link passHref href="/artists">
                 <Nav.Link className="navbar navlink">Artists</Nav.Link>
               </Link>
               <Link passHref href="/products">
                 <Nav.Link className="navbar navlink">Products</Nav.Link>
               </Link>
-            </Nav>
-            <Nav className="justify-content-end flex-grow-1 pe-3">
+            </Container>
+            <Container className="justify-content-end flex-grow-1 pe-3" style={{ display: 'flex' }}>
               <Link passHref href={user.uid ? '/profile/my-profile' : '/profile/login'}>
                 <Nav.Link className="navbar navlink">Profile</Nav.Link>
               </Link>
-            </Nav>
+            </Container>
           </Offcanvas.Body>
-          {/* <Nav
-            className="me-auto"
-            style={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'space-between',
-            }}
-          >
-             CLOSE NAVBAR ON LINK SELECTION: https://stackoverflow.com/questions/72813635/collapse-on-select-react-bootstrap-navbar-with-nextjs-not-working
-            <div style={{
-              display: 'flex',
-            }}
-            >
-              <Link passHref href="/bands">
-                <Nav.Link className="navbar navlink">Bands</Nav.Link>
-              </Link>
-              <Link passHref href="/products">
-                <Nav.Link className="navbar navlink">Products</Nav.Link>
-              </Link>
-            </div>
-            <div style={{
-              display: 'flex',
-              marginLeft: 'auto',
-            }}
-            >
-              <Link passHref href="/profile">
-                <Nav.Link className="navbar navlink">Profile</Nav.Link>
-              </Link>
-              <Button variant="danger" onClick={signOut}>
-                Sign Out
-              </Button>}
-            </div>
-          </Nav> */}
         </Navbar.Offcanvas>
       </Container>
     </Navbar>

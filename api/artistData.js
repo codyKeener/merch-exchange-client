@@ -31,7 +31,7 @@ const getSingleArtist = (id) => new Promise((resolve, reject) => {
 // CREATE ARTIST
 const createArtist = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/artists`, {
-    method: 'ARTIST',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
